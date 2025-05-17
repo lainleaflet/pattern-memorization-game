@@ -13,6 +13,11 @@ body, html{
 
 #name{
     color: #444;
+    margin-bottom: 0;
+}
+
+#progress, #currentScore, #highScore {
+    margin-bottom: 5px;
 }
 
 #game-container{
