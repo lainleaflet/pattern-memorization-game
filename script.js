@@ -22,10 +22,21 @@ for (let i = 0; i < 9; i++){
     grid.appendChild(box);
 }
 
+let i = 0;
 function light(x){
     clear();
     if(x instanceof Event){
-        x.target.classList.add('light');
+        if (x.target == boxes[pattern[i]]) {
+            x.target.classList.add('correct');
+            i++;
+            if (i == pattern.length){
+                i = 0;
+                setTimeout(startGame, 3000);
+            }
+        } else {
+              x.target.classList.add('incorrect');
+              i = 0;
+        }     
     } else {
         x.classList.add('light');
     }
@@ -34,15 +45,19 @@ function light(x){
 function clear(){
     for (let i = 0; i < 9; i++){
         boxes[i].classList.remove('light');
+        boxes[i].classList.remove('correct');
+        boxes[i].classList.remove('incorrect');
     }
 }
 
 async function startGame(){
+    progress.innerText = 'Computer\'s turn...';
     clear();
     startButton.disabled = true;
     generatePattern(pattern);
     executePattern(pattern);
     clickEnabled = true;
+    progress.innerText = 'Your turn...';
 }
 
 function generatePattern(pattern){
@@ -55,7 +70,6 @@ function sleep(ms){
 
 async function executePattern(pattern){
     clickEnabled = false;
-    progress.innerText = 'Computer\'s turn...';
     for (let i = 0; i < pattern.length; i++){
             clear();
             light(boxes[pattern[i]]);
