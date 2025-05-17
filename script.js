@@ -7,9 +7,8 @@ const startButton = document.getElementById("start-btn");
 let boxes = [];
 let score = 0;
 let pattern = [];
-// need to write code for initializing highscore
-
 let clickEnabled = false;
+// need to write code for initializing highscore
 
 for (let i = 0; i < 9; i++){
     const box = document.createElement("div");
@@ -41,17 +40,9 @@ function clear(){
 async function startGame(){
     clear();
     startButton.disabled = true;
-    while(true){
-        generatePattern(pattern);
-        executePattern(pattern);
-        break;
-    }
-
-    // for (let i = 0; i < 2; i++){
-    //     generatePattern(pattern);
-    //     executePattern(pattern);
-    // }
-
+    generatePattern(pattern);
+    executePattern(pattern);
+    clickEnabled = true;
 }
 
 function generatePattern(pattern){
@@ -71,17 +62,7 @@ async function executePattern(pattern){
             await sleep(600); 
             clear();
             await sleep(200); 
-    }
-    
-}
-
-function userTurn(){
-    clickEnabled = true;
-    progress.innerText = "Your turn...";
-    while(i<boxes.length){
-        let focusBox = something; // look...
-
-    }
+    }  
 }
 
 startButton.addEventListener('click', startGame);
