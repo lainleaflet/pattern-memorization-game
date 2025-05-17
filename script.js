@@ -1,14 +1,16 @@
 const grid = document.getElementById("grid");
 const progress = document.getElementById("progress");
-const currentScore = document.getElementById("currentScore");
-const highScore = document.getElementById("highScore");
+const currentScoreDisplay = document.getElementById("currentScore");
+const highScoreDisplay = document.getElementById("highScore");
 const startButton = document.getElementById("start-btn");
 
 let boxes = [];
 let score = 0;
 let pattern = [];
 let clickEnabled = false;
-// need to write code for initializing highscore
+let highScore = 0;
+
+highScoreDisplay.innerText = `High Score: ${highScore}`;
 
 for (let i = 0; i < 9; i++){
     const box = document.createElement("div");
@@ -31,11 +33,14 @@ function light(x){
             i++;
             if (i == pattern.length){
                 i = 0;
+                score++;
                 setTimeout(startGame, 3000);
             }
         } else {
               x.target.classList.add('incorrect');
+              updateHighScore();
               i = 0;
+              resetGame();
         }     
     } else {
         x.classList.add('light');
@@ -77,6 +82,23 @@ async function executePattern(pattern){
             clear();
             await sleep(200); 
     }  
+}
+
+function updateHighScore(){
+    if (score > highScore){
+        highScore = score;
+        updateHighScoreDisplay();
+    }
+}
+
+function updateHighScoreDisplay(){
+    highScoreDisplay.innerText = `High Score: ${highScore}`;
+}
+
+function resetGame(){
+    score = 0;
+    startButton.disabled = false;
+    pattern.length = 0;
 }
 
 startButton.addEventListener('click', startGame);
