@@ -10,6 +10,7 @@ let pattern = [];
 let clickEnabled = false;
 let highScore = 0;
 
+currentScoreDisplay.innerText = `Current Score: ${score}`;
 highScoreDisplay.innerText = `High Score: ${highScore}`;
 
 for (let i = 0; i < 9; i++){
@@ -34,7 +35,8 @@ function light(x){
             if (i == pattern.length){
                 i = 0;
                 score++;
-                setTimeout(startGame, 3000);
+                currentScoreDisplay.innerText = `Current Score: ${score}`;
+                setTimeout(startGame, 1000);
             }
         } else {
               x.target.classList.add('incorrect');
@@ -96,9 +98,11 @@ function updateHighScoreDisplay(){
 }
 
 function resetGame(){
+    progress.innerText = "Game over!"
     score = 0;
     startButton.disabled = false;
     pattern.length = 0;
+    currentScoreDisplay.innerText = `Current Score: ${score}`;
 }
 
 startButton.addEventListener('click', startGame);
