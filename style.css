@@ -59,5 +59,13 @@ body, html{
 }
 
 .light{
-    background-color: #DDA0DD !important;
+    background-color: #dda0dd;
+}
+
+.correct{
+    background-color: green !important;
+}
+
+.incorrect{
+    background-color: red !important;
 }
