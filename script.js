@@ -63,8 +63,9 @@ async function startGame(){
     startButton.disabled = true;
     generatePattern(pattern);
     executePattern(pattern);
-    clickEnabled = true;
+    await sleep(pattern.length*1000);
     progress.innerText = 'Your turn...';
+    clickEnabled = true;
 }
 
 function generatePattern(pattern){
