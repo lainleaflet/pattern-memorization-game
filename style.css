@@ -63,9 +63,9 @@ body, html{
 }
 
 .correct{
-    background-color: green !important;
+    background-color: green;
 }
 
 .incorrect{
-    background-color: red !important;
+    background-color: red;
 }
