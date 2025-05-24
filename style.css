@@ -39,13 +39,6 @@ body, html{
     text-align: center;
 }
 
-#start-btn{
-    margin-top: 10px;
-    padding: 12px 32px;
-    cursor: pointer;
-
-}
-
 .grid{
     display: grid;
     grid-template-columns: repeat(3, 100px);
@@ -73,4 +66,37 @@ body, html{
 
 .incorrect{
     background-color: red;
+}
+
+#start-btn{
+    margin-top: 10px;
+    padding: 12px 32px;
+    cursor: pointer;
+}
+#leaderboard-btn{
+    margin-top: 10px;
+    padding: 12px 15px;
+    cursor: pointer;
+}
+
+button{
+    margin: 10px;
+    /* padding: 12px 32px; */
+    border-radius: 8px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    transition: background-color 0.1s ease, transform 0.1s ease;
+}
+
+button:hover{
+    background-color: #D8BFD8;
+    transform: scale(1.02);
+    color: black;
+}
+
+.button-container {
+    display: flex;
 }
