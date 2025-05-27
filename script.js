@@ -3,6 +3,10 @@ const progress = document.getElementById("progress");
 const currentScoreDisplay = document.getElementById("currentScore");
 const highScoreDisplay = document.getElementById("highScore");
 const startButton = document.getElementById("start-btn");
+const leaderBoardButton = document.getElementById("leaderboard-btn");
+const backButton = document.getElementById("back-btn");
+const leaderBoardDiv = document.getElementById("leaderboard");
+const gameSetUpDiv = document.getElementById("game-setup");
 
 let boxes = [];
 let score = 0;
@@ -100,12 +104,60 @@ function updateHighScoreDisplay(){
 
 function resetGame(){
     progress.innerText = "Game over!"
+    if (score > 0) {
+        const name = prompt("Game over! Enter your name for the leaderboard:");
+        if (name) updateLeaderBoard(name, score);
+    }
     score = 0;
     startButton.disabled = false;
     pattern.length = 0;
     currentScoreDisplay.innerText = `Current Score: ${score}`;
 }
 
+function getLeaderBoard(){
+    return JSON.parse(localStorage.getItem('leaderboard')) || [];
+}
+
+function saveLeaderBoard(leaderboard) {
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+}
+
+function updateLeaderBoard(name, score) {
+    const leaderboard = getLeaderBoard();
+    leaderboard.push({ name, score });
+    leaderboard.sort((a, b) => b.score - a.score);
+    saveLeaderBoard(leaderboard);
+    displayLeaderBoard();
+}
+
+function displayLeaderBoard(){
+    leaderBoardDiv.style.display = 'block';
+    gameSetUpDiv.style.display = 'none';
+    backButton.style.display = 'inline-block';
+    let leaderboard = getLeaderBoard();
+    leaderBoardDiv.innerHTML = '<h3>Leaderboard</h3>';
+
+    if(leaderboard.length == 0){
+        leaderBoardDiv.innerHTML += '<p>No scores yet.</p>';
+        return;
+    }
+
+    const list = document.createElement('ol');
+    leaderboard.forEach(input =>{
+        const player = document.createElement('li');
+        player.innerText = `${input.name}: ${input.score}`;
+        list.appendChild(player);
+    });
+
+    leaderBoardDiv.appendChild(list);
+}
+
 startButton.addEventListener('click', startGame);
+leaderBoardButton.addEventListener('click', displayLeaderBoard);
+backButton.addEventListener('click', () => {
+    leaderBoardDiv.style.display = 'none';
+    gameSetUpDiv.style.display = 'block';
+    backButton.style.display = 'none';
+});
 
-
+// localStorage.removeItem('leaderboard');
